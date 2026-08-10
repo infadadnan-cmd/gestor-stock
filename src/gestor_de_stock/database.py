@@ -1,14 +1,18 @@
 import os
 import sqlite3
-from product import Product
+from .product import Product
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))
+    )
+)
+
 DB_PATH = os.path.join(BASE_DIR, "Inventory.db")
 
 connection = sqlite3.connect(DB_PATH, check_same_thread=False)
 connection.row_factory = sqlite3.Row
 cursor = connection.cursor()
-from product import Product
 def create_table():
     cursor.execute(""" CREATE TABLE IF NOT EXISTS products(
     id INTEGER PRIMARY KEY AUTOINCREMENT,

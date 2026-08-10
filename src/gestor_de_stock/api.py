@@ -1,12 +1,11 @@
-from fastapi import FastAPI
 from fastapi import FastAPI, HTTPException, status
 
-from inventory import Inventory
-from product import Product
+from .inventory import Inventory
+from .product import Product
 
 inventory= Inventory()
 app = FastAPI()
-from shemas import ProductResponse, ProductCreate 
+from .shemas import ProductResponse, ProductCreate 
 
 
 @app.get("/")

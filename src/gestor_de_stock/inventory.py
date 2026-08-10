@@ -1,5 +1,5 @@
-from product import Product
-import database
+from .product import Product
+from . import database
 
 
 class Inventory:
