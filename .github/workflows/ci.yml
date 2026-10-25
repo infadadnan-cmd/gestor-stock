@@ -1,0 +1,27 @@
+
+name: Backend CI
+
+# This workflow runs automatically when code is pushed.
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+  
+  steps:
+   - name: Set up Python
+     uses: actions/setup-python@v5
+     with:
+      python-version: "3.14"
+
+   - name: Set up uv
+     uses: astral-sh/setup-uv@v6
+
+   - name: Install dependencies
+     run: uv sync --locked --group dev
+
+   - name: Run tests
+     run: uv run pytest    
+     
