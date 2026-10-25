@@ -12,6 +12,7 @@ from gestor_de_stock.domain.user import User
 from gestor_de_stock.infrastructure.security.dependencies import (
     get_current_user,
     get_rate_limiter,
+    get_jwt_service
 )
 from gestor_de_stock.infrastructure.security.jwt_service import JWTService
 from gestor_de_stock.infrastructure.security.password_hasher import PasswordHasher
@@ -26,9 +27,10 @@ from gestor_de_stock.infrastructure.sqlite_user_repository import SQLiteUserRepo
 
 
 @pytest.fixture
-def client_user(api_user_repository, rate_limiter):
+def client_user(api_user_repository, rate_limiter, jwt_service):
     app.dependency_overrides[get_user_repository] = lambda: api_user_repository
     app.dependency_overrides[get_rate_limiter] = lambda: rate_limiter
+    app.dependency_overrides[get_jwt_service] = lambda: jwt_service
     with TestClient(app) as client:
         yield client
     app.dependency_overrides.clear()
